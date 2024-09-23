@@ -26,6 +26,7 @@ def meta_test(data_path, model, way, shot, pre, transform_type,
                                                    transform_type=transform_type,
                                                    query_shot=query_shot,
                                                    trial=trial)
+    
     target = torch.LongTensor([i//query_shot for i in range(query_shot*way)]).cuda()
 
     acc_list = []
@@ -39,4 +40,24 @@ def meta_test(data_path, model, way, shot, pre, transform_type,
         acc_list.append(acc)
 
     mean, interval = get_score(acc_list)
+    return mean, interval
+
+
+def meta_test_yzw(model, dataloader, way, shot, trail):
+    acc_list = []
+
+    for i, (img, vid, target_cam, target_view, _) in enumerate(dataloader):
+        img = img.cuda()
+        target = vid.cuda()
+        max_index = model.meta_test(img, way=way, shot=shot, query_shot=16)
+
+        acc = 100 * torch.sum(torch.eq(max_index, target)).item() / len(target)
+        acc_list.append(acc)
+
+    if trail > 1:
+        mean, interval = get_score(acc_list)
+    else:
+        mean = np.mean(acc_list)
+        interval = 0
+
     return mean, interval

@@ -1,6 +1,7 @@
 from functools import partial
 from trainers import trainer, C2_Net_train
 from datasets import dataloaders
+from datasets.dataloaders_c2net_new import make_fewshot_dataloader
 from utils.util import *
 
 
@@ -9,11 +10,14 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu)
 
 fewshot_path = dataset_path(args)
 pm = trainer.Path_Manager(fewshot_path=fewshot_path, args=args)
-train_loader = dataloaders.\
-    meta_train_dataloader(data_path=pm.train,
-                          way=args.train_way,
-                          shots=[args.train_shot, args.train_query_shot],
-                          transform_type=args.train_transform_type)
+
+# train_loader = dataloaders.meta_train_dataloader(data_path=pm.train,
+#                           way=args.train_way,
+#                           shots=[args.train_shot, args.train_query_shot],
+#                           transform_type=args.train_transform_type)
+
+train_loader, val_loader, query_loader, gallery_loader, num_query, num_classes = make_fewshot_dataloader(args)
+
 
 args.save_folder = get_save_path(args)
 
@@ -23,5 +27,6 @@ tm = trainer.Train_Manager(args, path_manager=pm, train_func=train_func)
 model = load_model(args)
 if args.resume:
     model = load_resume_point(args, model)
-tm.train(model)
-tm.evaluate(model)
+
+tm.train(model, train_loader, val_loader, query_loader, gallery_loader)
+tm.evaluate(model, train_loader, val_loader, query_loader, gallery_loader)

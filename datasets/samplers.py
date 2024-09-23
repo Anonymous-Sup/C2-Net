@@ -5,10 +5,82 @@ import numpy as np
 from copy import deepcopy
 from torch.utils.data import Sampler
 
+from collections import defaultdict
+import copy
+import random
 
+
+
+class FewshotBatchSampler(Sampler):
+    def __init__(self, data_source, way, shot, trial=100):
+        
+        self.data_source = data_source
+        self.way = way
+        self.shot = shot
+        self.trial = trial
+
+        self.index_dic = defaultdict(list)
+        # Create a dictionary mapping each class (pid) to its image indices
+        for index, (_, pid, _, _) in enumerate(self.data_source):
+            self.index_dic[pid].append(index)
+        self.pids = list(self.index_dic.keys())  # List of unique class IDs (pids)
+
+    def __iter__(self):
+        index_dic = deepcopy(self.index_dic)
+        for _ in range(self.trial):
+            
+            episode_idxs = []  # Collect indices for this episode
+            
+            # Randomly select `num_classes` (N) from available pids (with replacement allowed)
+            selected_pids = random.sample(self.pids, self.way)
+    
+            for pid in selected_pids:
+                np.random.shuffle(index_dic[pid])
+
+            for pid in selected_pids:
+                episode_idxs.extend(index_dic[pid][:self.shot])
+            for pid in selected_pids:
+                episode_idxs.extend(index_dic[pid][self.shot:])
+
+            yield episode_idxs
+
+class RandomSampler(Sampler):
+    def __init__(self, data_source, way, shot, trial=2000):
+        
+        self.data_source = data_source
+        self.way = way
+        self.shot = shot
+        self.trial = trial
+
+        self.index_dic = defaultdict(list)
+        # Create a dictionary mapping each class (pid) to its image indices
+        for index, (_, pid, _, _) in enumerate(self.data_source):
+            self.index_dic[pid].append(index)
+        self.pids = list(self.index_dic.keys())  # List of unique class IDs (pids)
+
+    def __iter__(self):
+        index_dic = deepcopy(self.index_dic)
+        for _ in range(self.trial):
+            
+            episode_idxs = []  # Collect indices for this episode
+            
+            # Randomly select `num_classes` (N) from available pids (with replacement allowed)
+            selected_pids = random.sample(self.pids, self.way)
+    
+            for pid in selected_pids:
+                np.random.shuffle(index_dic[pid])
+
+            for pid in selected_pids:
+                episode_idxs.extend(index_dic[pid][:self.shot])
+
+            for pid in selected_pids:
+                episode_idxs.extend(index_dic[pid][self.shot:])
+
+            yield episode_idxs
+
+        
 # meta-training
 class meta_batchsampler(Sampler):
-
     def __init__(self, data_source, way, shots, trial=250):
 
         class2id = {}

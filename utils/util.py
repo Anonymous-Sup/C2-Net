@@ -74,6 +74,8 @@ def dataset_path(args):
         fewshot_path = os.path.join(data_path, 'meta_iNat')
     elif args.dataset == 'tiered_meta_iNat':
         fewshot_path = os.path.join(data_path, 'tiered_meta_iNat')
+    elif args.dataset == 'sketchy':
+        fewshot_path = os.path.join(data_path, 'Sketchy')
 
 
     return fewshot_path
@@ -99,6 +101,8 @@ def get_save_path(args):
         path = os.path.join(path, 'meta_iNat')
     elif args.dataset == 'tiered_meta_iNat':
         path = os.path.join(path, 'tiered_meta_iNat')
+    elif args.dataset == 'sketchy':
+        path = os.path.join(path, 'Sketchy')
 
     detail_path = 'C2_Net'
 

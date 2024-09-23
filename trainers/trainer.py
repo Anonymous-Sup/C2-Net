@@ -6,8 +6,8 @@ import logging
 import numpy as np
 import argparse
 from tqdm import tqdm
-from tensorboardX import SummaryWriter
-from .eval import meta_test
+# from tensorboardX import SummaryWriter
+from .eval import meta_test, meta_test_yzw
 sys.path.append('..')
 from datasets import dataloaders
 
@@ -145,7 +145,8 @@ class Train_Manager:
 
         self.logger = get_logger(os.path.join(args.save_folder, '%s.log' % (name)))
         self.save_path = os.path.join(args.save_folder, 'model_%s.pth' % (name))
-        self.writer = SummaryWriter(os.path.join(args.save_folder, 'log_%s' % (name)))
+
+        # self.writer = SummaryWriter(os.path.join(args.save_folder, 'log_%s' % (name)))
 
         if args.resume:
             self.logger.info('display resume information')
@@ -163,11 +164,11 @@ class Train_Manager:
         self.train_func = train_func
         self.pm = path_manager
 
-    def train(self, model):
+    def train(self, model, train_loader, val_loader, query_loader, gallery_loader):
 
         args = self.args
         train_func = self.train_func
-        writer = self.writer
+        writer = None
         save_path = self.save_path
         logger = self.logger
 
@@ -205,18 +206,15 @@ class Train_Manager:
 
                     model.eval()
                     with torch.no_grad():
-                        val_acc, val_interval = meta_test(data_path=self.pm.val,
-                                                          model=model,
-                                                          way=test_way,
-                                                          shot=val_shot,
-                                                          pre=args.pre,
-                                                          transform_type=args.test_transform_type,
-                                                          query_shot=args.test_query_shot,
-                                                          trial=args.val_trial
-                                                          )
-                        writer.add_scalar('val_%d-way-%d-shot_acc' % (test_way, val_shot), val_acc, iter_counter)
+                        val_acc, val_interval = meta_test_yzw(model=model,
+                                        loader=val_loader,
+                                        way=args.test_way,
+                                        shot=args.test_shot,
+                                        trial=1
+                                        )
+                    logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(test_way, val_shot, val_acc, val_interval))
 
-                    logger.info('val_%d-way-%d-shot_acc: %.3f\t%.3f' % (test_way, val_shot, val_acc, val_interval))
+                    # logger.info('val_%d-way-%d-shot_acc: %.3f\t%.3f' % (test_way, val_shot, val_acc, val_interval))
 
                     if val_acc > best_val_acc:
                         best_val_acc = val_acc
@@ -234,10 +232,10 @@ class Train_Manager:
             torch.save(model.state_dict(), save_path)
 
         logger.info('------------------------')
-        logger.info(('the best epoch is %d/%d') % (best_epoch,total_epoch))
-        logger.info(('the best %d-way %d-shot val acc is %.3f') % (test_way,val_shot,best_val_acc))
+        logger.info(('the best epoch is %d/%d') % (best_epoch, total_epoch))
+        logger.info(('the best %d-way %d-shot val acc is %.3f') % (test_way, val_shot, best_val_acc))
 
-    def evaluate(self, model):
+    def evaluate(self, model, train_loader, val_loader, query_loader, gallery_loader):
 
         logger = self.logger
         args = self.args
@@ -253,18 +251,12 @@ class Train_Manager:
                 model.module.load_state_dict(torch.load(self.save_path))
             model.eval()
 
-            for shot in args.test_shot:
-
-                mean, interval = meta_test(data_path=self.pm.test,
-                                           model=model,
-                                           way=args.test_way,
-                                           shot=shot,
-                                           pre=args.pre,
-                                           transform_type=args.test_transform_type,
-                                           query_shot=args.test_query_shot,
-                                           trial=2000
-                                           )
-
-                logger.info('%d-way-%d-shot acc: %.2f\t%.2f'%(args.test_way,shot,mean,interval))
+            mean, interval = meta_test_yzw(model=model,
+                                        loader=gallery_loader,
+                                        way=args.test_way,
+                                        shot=args.test_shot,
+                                        trial=1
+                                        )
+            logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.test_way,args.test_shot,mean,interval))
 
 
