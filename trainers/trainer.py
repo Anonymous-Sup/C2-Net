@@ -207,7 +207,7 @@ class Train_Manager:
                     model.eval()
                     with torch.no_grad():
                         val_acc, val_interval = meta_test_yzw(model=model,
-                                        loader=val_loader,
+                                        dataloader=val_loader,
                                         way=args.test_way,
                                         shot=args.test_shot,
                                         trial=2000,
@@ -253,7 +253,7 @@ class Train_Manager:
             model.eval()
 
             mean, interval = meta_test_yzw(model=model,
-                                        loader=test_loader,
+                                        dataloader=test_loader,
                                         way=args.test_way,
                                         shot=args.test_shot,
                                         trial=2000,
