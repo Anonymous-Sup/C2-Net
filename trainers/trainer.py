@@ -201,8 +201,8 @@ class Train_Manager:
 
                     logger.info("")
                     logger.info("epoch %d/%d, iter %d:" % (e+1,total_epoch,iter_counter))
-                    logger.info("train_loss: %.5f" % (train_loss))
-                    logger.info("train_acc: %.3f" % (train_acc))
+                    # logger.info("train_loss: %.5f" % (train_loss))
+                    # logger.info("train_acc: %.3f" % (train_acc))
 
                     model.eval()
                     with torch.no_grad():
@@ -210,7 +210,7 @@ class Train_Manager:
                                         dataloader=val_loader,
                                         way=args.train_way,
                                         shot=args.train_shot,
-                                        trial=2000,
+                                        trial=1000,
                                         validation=True
                                         )
                     logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.train_way, args.train_shot, val_acc, val_interval))
@@ -234,7 +234,7 @@ class Train_Manager:
 
         logger.info('------------------------')
         logger.info(('the best epoch is %d/%d') % (best_epoch, total_epoch))
-        logger.info(('the best %d-way %d-shot val acc is %.3f') % (test_way, val_shot, best_val_acc))
+        logger.info(('the best %d-way %d-shot val acc is %.3f') % (args.train_way, args.train_shot, best_val_acc))
 
     def evaluate(self, model, test_loader):
 
@@ -256,7 +256,7 @@ class Train_Manager:
                                         dataloader=test_loader,
                                         way=args.train_way,
                                         shot=args.train_shot,
-                                        trial=2000,
+                                        trial=1000,
                                         validation=False
                                         )
             logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.train_way, args.train_shot, mean, interval))
