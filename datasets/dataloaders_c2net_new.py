@@ -100,16 +100,16 @@ def make_fewshot_dataloader(args, data_root):
 
     val_set = ImageDataset(dataset.val, val_transforms)
     val_loader = DataLoader(val_set, 
-                            batch_sampler=ValSampler(dataset.val, way=args.test, 
-                                             shot=args.testshot, trial=args.val_trial),
+                            batch_sampler=ValSampler(dataset.val, way=args.test_way, 
+                                             shot=args.test_shot, trial=args.val_trial),
                             num_workers=num_workers, collate_fn=val_collate_fn
     )
 
     test_set = ImageDataset(dataset.query + dataset.gallery, val_transforms)
 
     test_loader = DataLoader(test_set, 
-                              batch_sampler=RandomSampler(dataset.query, dataset.gallery, way=args.test, 
-                                             shot=args.testshot, trial=args.val_trial),
+                              batch_sampler=RandomSampler(dataset.query, dataset.gallery, way=args.test_way, 
+                                             shot=args.test_shot, trial=args.val_trial),
                               num_workers=num_workers, collate_fn=val_collate_fn
     )
 
