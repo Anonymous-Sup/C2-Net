@@ -27,5 +27,5 @@ model = load_model(args)
 if args.resume:
     model = load_resume_point(args, model)
 
-tm.train(model, train_loader, val_loader)
+# tm.train(model, train_loader, val_loader)
 tm.evaluate(model, test_loader)
