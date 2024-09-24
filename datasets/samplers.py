@@ -79,7 +79,7 @@ class ValSampler(Sampler):
                 episode_idxs.extend(index_dic[pid][:self.shot])
 
             for pid in selected_pids:
-                episode_idxs.extend(index_dic[pid][self.shot + self.query_shot])
+                episode_idxs.extend(index_dic[pid][self.shot: self.shot + self.query_shot])
 
             yield episode_idxs
 
