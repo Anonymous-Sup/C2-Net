@@ -234,13 +234,13 @@ class Sketchy(BaseImageDataset):
 
     dataset_dir = 'Sketchy'
 
-    def __init__(self, config=None, root='', verbose=True, pid_begin=0, **kwargs):
+    def __init__(self, root='', verbose=True, pid_begin=0, NWAY=0, KSHOT=0, **kwargs):
         super(Sketchy, self).__init__()
 
-        # self.training_mode = config.DATASETS.TRAINING_MODE # choice for 'allway' and '5way'
+        # choice for 'allway' and '5way'
         self.training_mode = 'allway'
 
-        self.base_label2index, self.novel_label2index, self.selected_label2inds = buildLabelIndex(Way=config.FEWSHOT.NWAY, seed=1)
+        self.base_label2index, self.novel_label2index, self.selected_label2inds = buildLabelIndex(Way=NWAY, seed=1)
 
         self.dataset_dir = osp.join(root, self.dataset_dir)
 
@@ -251,7 +251,7 @@ class Sketchy(BaseImageDataset):
         self.pid_begin = pid_begin
         
         train, val, query, gallery = self._process_dir(self.rgb_dir, self.sketch_dir, relabel=False, 
-                                                  training_mode=self.training_mode, number_pthots=config.FEWSHOT.KSHOT, number_sketches=config.FEWSHOT.KSHOT, random_seed=0)
+                                                  training_mode=self.training_mode, number_pthots=KSHOT, number_sketches=KSHOT, random_seed=0)
         if verbose:
             print("=> Sketchy dataset loaded")
             self.print_dataset_statistics(train, query, gallery, val)
