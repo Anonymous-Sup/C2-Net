@@ -9,7 +9,7 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
     query_shot = model.shots[-1]
 
     # for each way build a target tensor form 0 to way-1
-    # target = torch.LongTensor([i // query_shot for i in range(query_shot * way)]).cuda()
+    target = torch.LongTensor([i // query_shot for i in range(query_shot * way)]).cuda()
     criterion = NLLLoss().cuda()
 
     lr = optimizer.param_groups[0]['lr']
@@ -33,7 +33,7 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
         img = img.cuda()
         target = vid.cuda()
 
-        query_target = target[way * shot:]
+        # query_target = target[way * shot:]
 
         '''
         img shape: torch.Size([80, 3, 256, 128])
@@ -49,8 +49,8 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
 
         alpha = args.alpha
 
-        loss_h = criterion(log_prediction_h, query_target)
-        loss_m = criterion(log_prediction_m, query_target)
+        loss_h = criterion(log_prediction_h, target)
+        loss_m = criterion(log_prediction_m, target)
         loss_total = (alpha * loss_h + (1 - alpha) * loss_m)*2
 
         optimizer.zero_grad()
@@ -62,7 +62,7 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
         log_prediction = (log_prediction_h + log_prediction_m) / 2
         _, max_index = torch.max(log_prediction, 1)
         # acc = 100 * torch.sum(torch.eq(max_index, target)).item() / query_shot / way
-        acc = 100 * torch.sum(torch.eq(max_index, query_target)).item() / len(query_target)
+        acc = 100 * torch.sum(torch.eq(max_index, target)).item() / len(target)
 
         avg_acc += acc
         avg_loss += loss_value
