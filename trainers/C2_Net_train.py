@@ -31,7 +31,7 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
         iter_counter += 1
 
         img = img.cuda()
-        target = vid.cuda()
+        # target = vid.cuda()
 
         # query_target = target[way * shot:]
 
