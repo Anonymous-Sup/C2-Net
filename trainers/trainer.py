@@ -58,7 +58,7 @@ def train_parser():
     parser.add_argument("--train_shot", help="number of support images per class for meta-training and meta-testing during validation", type=int)
     parser.add_argument("--test_shot", nargs='+', help="number of support images per class for meta-testing during final test", type=int)
     parser.add_argument("--train_query_shot", help="number of query images per class during meta-training", type=int, default=15)
-    parser.add_argument("--test_query_shot", help="number of query images per class during meta-testing", type=int, default=16)
+    parser.add_argument("--test_query_shot", help="number of query images per class during meta-testing", type=int, default=15)
     parser.add_argument("--train_transform_type", help="size transformation type during training", type=int)
     parser.add_argument("--test_transform_type", help="size transformation type during inference", type=int)
     parser.add_argument("--val_trial", help="number of meta-testing episodes during validation", type=int, default=2000)

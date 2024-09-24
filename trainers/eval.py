@@ -43,7 +43,7 @@ def meta_test(data_path, model, way, shot, pre, transform_type,
     return mean, interval
 
 
-def meta_test_yzw(model, dataloader, way, shot,  trial, query_shot=16, validation=False):
+def meta_test_yzw(model, dataloader, way, shot,  trial, query_shot=15, validation=False):
     
     acc_list = []
 
@@ -51,15 +51,15 @@ def meta_test_yzw(model, dataloader, way, shot,  trial, query_shot=16, validatio
         shot = shot*2
         query_shot = query_shot+1
     
-    target = torch.LongTensor([i//query_shot for i in range(query_shot*way)]).cuda()
+    target = torch.LongTensor([i//query_shot for i in range(query_shot * way)]).cuda()
 
     for i, (img, vid, target_cam, _, target_view, _) in enumerate(dataloader):
         img = img.cuda()
         # target = vid.cuda()
 
-        max_index = model.meta_test(img, way=way, shot=shot, query_shot=16)
+        max_index = model.meta_test(img, way=way, shot=shot, query_shot=15)
 
-        query_shot = 16
+        query_shot = 15
         acc = 100 * torch.sum(torch.eq(max_index, target)).item() / query_shot / way
         acc_list.append(acc)
 
