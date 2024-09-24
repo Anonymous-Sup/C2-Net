@@ -53,7 +53,7 @@ def meta_test_yzw(model, dataloader, way, shot,  trial, query_shot=16, validatio
     
     target = torch.LongTensor([i//query_shot for i in range(query_shot*way)]).cuda()
 
-    for i, (img, vid, target_cam, target_view, _) in enumerate(dataloader):
+    for i, (img, vid, target_cam, _, target_view, _) in enumerate(dataloader):
         img = img.cuda()
         # target = vid.cuda()
 
