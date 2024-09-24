@@ -240,7 +240,7 @@ class Sketchy(BaseImageDataset):
         # choice for 'allway' and '5way'
         self.training_mode = 'allway'
 
-        self.base_label2index, self.novel_label2index, self.selected_label2inds = buildLabelIndex(Way=NWAY, seed=1)
+        self.base_label2index, self.novel_label2index, self.selected_label2inds = buildLabelIndex(Way=5, seed=1)
 
         self.dataset_dir = osp.join(root, self.dataset_dir)
 
