@@ -53,7 +53,7 @@ def train_parser():
     parser.add_argument('--decay_epoch', nargs='+',help='epochs that cut lr', type=int)
     parser.add_argument("--pre", help="whether use pre-resized 84x84 images for val and test", action="store_true")
     parser.add_argument("--no_val", help="don't use validation set, just save model at final timestep", action="store_true")
-    parser.add_argument("--train_way", help="training way", type=int)
+    parser.add_argument("--train_way", help="training way", type=int, required=True)
     parser.add_argument("--test_way", help="test way", type=int, default=5)
     parser.add_argument("--train_shot", help="number of support images per class for meta-training and meta-testing during validation", type=int)
     parser.add_argument("--test_shot", nargs='+', help="number of support images per class for meta-testing during final test", type=int)
@@ -164,7 +164,7 @@ class Train_Manager:
         self.train_func = train_func
         self.pm = path_manager
 
-    def train(self, model, train_loader, val_loader, query_loader, gallery_loader):
+    def train(self, model, train_loader, val_loader):
 
         args = self.args
         train_func = self.train_func
@@ -210,7 +210,8 @@ class Train_Manager:
                                         loader=val_loader,
                                         way=args.test_way,
                                         shot=args.test_shot,
-                                        trial=1
+                                        trial=1,
+                                        validation=True
                                         )
                     logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(test_way, val_shot, val_acc, val_interval))
 
@@ -235,7 +236,7 @@ class Train_Manager:
         logger.info(('the best epoch is %d/%d') % (best_epoch, total_epoch))
         logger.info(('the best %d-way %d-shot val acc is %.3f') % (test_way, val_shot, best_val_acc))
 
-    def evaluate(self, model, train_loader, val_loader, query_loader, gallery_loader):
+    def evaluate(self, model, test_loader):
 
         logger = self.logger
         args = self.args
@@ -252,10 +253,11 @@ class Train_Manager:
             model.eval()
 
             mean, interval = meta_test_yzw(model=model,
-                                        loader=gallery_loader,
+                                        loader=test_loader,
                                         way=args.test_way,
                                         shot=args.test_shot,
-                                        trial=1
+                                        trial=1,
+                                        validation=False
                                         )
             logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.test_way,args.test_shot,mean,interval))
 

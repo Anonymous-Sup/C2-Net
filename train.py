@@ -16,7 +16,7 @@ pm = trainer.Path_Manager(fewshot_path=fewshot_path, args=args)
 #                           shots=[args.train_shot, args.train_query_shot],
 #                           transform_type=args.train_transform_type)
 
-train_loader, val_loader, query_loader, gallery_loader, num_query, num_classes = make_fewshot_dataloader(args)
+train_loader, val_loader, test_loader, num_query, num_classes = make_fewshot_dataloader(args)
 
 
 args.save_folder = get_save_path(args)
@@ -28,5 +28,5 @@ model = load_model(args)
 if args.resume:
     model = load_resume_point(args, model)
 
-tm.train(model, train_loader, val_loader, query_loader, gallery_loader)
-tm.evaluate(model, train_loader, val_loader, query_loader, gallery_loader)
+tm.train(model, train_loader, val_loader)
+tm.evaluate(model, test_loader)

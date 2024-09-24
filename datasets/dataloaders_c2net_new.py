@@ -6,7 +6,7 @@ import numpy as np
 from copy import deepcopy
 from PIL import Image
 from . import samplers, transform_manager
-from .samplers import FewshotBatchSampler, RandomSampler
+from .samplers import FewshotBatchSampler, RandomSampler, ValSampler
 from .bases import ImageDataset
 from .skechy_fewshot import Sketchy
 
@@ -94,27 +94,26 @@ def make_fewshot_dataloader(args):
 
     val_set = ImageDataset(dataset.val, val_transforms)
     val_loader = DataLoader(val_set, 
-                            batch_sampler=RandomSampler(dataset.val, way=args.test, 
+                            batch_sampler=ValSampler(dataset.val, way=args.test, 
                                              shot=args.testshot, trial=args.val_trial),
                             num_workers=num_workers, collate_fn=val_collate_fn
     )
 
-    query_set = ImageDataset(dataset.query, val_transforms)
-    query_loader = DataLoader(query_set, 
-                              batch_sampler=RandomSampler(dataset.query, way=args.test, 
+    test_set = ImageDataset(dataset.query + dataset.gallery, val_transforms)
+
+    test_loader = DataLoader(test_set, 
+                              batch_sampler=RandomSampler(dataset.query, dataset.gallery, way=args.test, 
                                              shot=args.testshot, trial=args.val_trial),
                               num_workers=num_workers, collate_fn=val_collate_fn
     )
 
-    gallery_set = ImageDataset(dataset.gallery, val_transforms)
-    gallery_loader = DataLoader(gallery_set, 
-                                batch_sampler=RandomSampler(dataset.gallery, way=args.test,
-                                                shot=args.testshot, trial=args.val_trial),
-                                num_workers=num_workers, collate_fn=val_collate_fn
-    )
+    # gallery_loader = DataLoader(gallery_set, 
+    #                             batch_sampler=RandomSampler(dataset.gallery, way=args.test,
+    #                                             shot=args.testshot, trial=args.val_trial),
+    #                             num_workers=num_workers, collate_fn=val_collate_fn
+    # )
 
-    return meta_train_dataloader, val_loader, query_loader, gallery_loader, len(dataset.query), num_classes
-
+    return meta_train_dataloader, val_loader, test_loader, len(dataset.query), num_classes
 
 
 

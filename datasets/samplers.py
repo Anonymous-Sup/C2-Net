@@ -44,7 +44,8 @@ class FewshotBatchSampler(Sampler):
 
             yield episode_idxs
 
-class RandomSampler(Sampler):
+
+class ValSampler(Sampler):
     def __init__(self, data_source, way, shot, trial=2000):
         
         self.data_source = data_source
@@ -59,6 +60,7 @@ class RandomSampler(Sampler):
         self.pids = list(self.index_dic.keys())  # List of unique class IDs (pids)
 
     def __iter__(self):
+        
         index_dic = deepcopy(self.index_dic)
         for _ in range(self.trial):
             
@@ -75,6 +77,50 @@ class RandomSampler(Sampler):
 
             for pid in selected_pids:
                 episode_idxs.extend(index_dic[pid][self.shot:])
+
+            yield episode_idxs
+
+
+class RandomSampler(Sampler):
+    def __init__(self, data_source_query, datasource_gallery, way, shot, trial=1):
+        
+        self.data_source_query = data_source_query
+        self.datasource_gallery = datasource_gallery
+        self.way = way
+        self.shot = shot
+        self.trial = trial
+
+        self.index_dic = defaultdict(list)
+        self.index_dic_gallery = defaultdict(list)
+        # Create a dictionary mapping each class (pid) to its image indices
+        for index, (_, pid, _, _) in enumerate(self.data_source_query):
+            self.index_dic[pid].append(index)
+        for index, (_, pid, _, _) in enumerate(self.datasource_gallery):
+            self.index_dic_gallery[pid].append(index)
+
+        self.pids = list(self.index_dic.keys())  # List of unique class IDs (pids)
+
+    def __iter__(self):
+        
+        index_dic = deepcopy(self.index_dic)
+        index_dic_gallery = deepcopy(self.index_dic_gallery)
+
+        for _ in range(self.trial):
+            
+            episode_idxs = []  # Collect indices for this episode
+            
+            # Randomly select `num_classes` (N) from available pids (with replacement allowed)
+            selected_pids = random.sample(self.pids, self.way)
+    
+            for pid in selected_pids:
+                np.random.shuffle(index_dic[pid])
+                np.random.shuffle(index_dic_gallery[pid])
+
+            for pid in selected_pids:
+                episode_idxs.extend(index_dic[pid])
+
+            for pid in selected_pids:
+                episode_idxs.extend(index_dic_gallery[pid])
 
             yield episode_idxs
 

@@ -43,8 +43,12 @@ def meta_test(data_path, model, way, shot, pre, transform_type,
     return mean, interval
 
 
-def meta_test_yzw(model, dataloader, way, shot, trail):
+def meta_test_yzw(model, dataloader, way, shot, trail, validation=False):
+    
     acc_list = []
+
+    if validation==False:
+        shot = shot*2
 
     for i, (img, vid, target_cam, target_view, _) in enumerate(dataloader):
         img = img.cuda()
