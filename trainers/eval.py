@@ -57,6 +57,10 @@ def meta_test_yzw(model, dataloader, way, shot,  trial, query_shot=16, validatio
         img = img.cuda()
         # target = vid.cuda()
 
+        print("image.shape:{}".format(img.shape))
+        print("target.shape:{}".format(target.shape))
+        print("way={}, shot={}, query_shot={}".format(way, shot, query_shot))
+        
         max_index = model.meta_test(img, way=way, shot=shot, query_shot=16)
 
         query_shot = 16
