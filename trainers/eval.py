@@ -43,7 +43,7 @@ def meta_test(data_path, model, way, shot, pre, transform_type,
     return mean, interval
 
 
-def meta_test_yzw(model, dataloader, way, shot,  trail, query_shot=16, validation=False):
+def meta_test_yzw(model, dataloader, way, shot,  trial, query_shot=16, validation=False):
     
     acc_list = []
 
@@ -63,7 +63,7 @@ def meta_test_yzw(model, dataloader, way, shot,  trail, query_shot=16, validatio
         acc = 100 * torch.sum(torch.eq(max_index, target)).item() / query_shot / way
         acc_list.append(acc)
 
-    if trail > 1:
+    if trial > 1:
         mean, interval = get_score(acc_list)
     else:
         mean = np.mean(acc_list)
