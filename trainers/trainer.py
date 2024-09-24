@@ -175,7 +175,7 @@ class Train_Manager:
         optimizer, scheduler = get_opt(model, args)
 
         val_shot = args.train_shot
-        test_way = args.test_way
+        test_way = args.train_way
 
         best_val_acc = 0
         best_epoch = 0
@@ -208,12 +208,12 @@ class Train_Manager:
                     with torch.no_grad():
                         val_acc, val_interval = meta_test_yzw(model=model,
                                         dataloader=val_loader,
-                                        way=args.test_way,
-                                        shot=args.test_shot,
+                                        way=args.train_way,
+                                        shot=args.train_shot,
                                         trial=2000,
                                         validation=True
                                         )
-                    logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(test_way, val_shot, val_acc, val_interval))
+                    logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.train_way, args.train_shot, val_acc, val_interval))
 
                     # logger.info('val_%d-way-%d-shot_acc: %.3f\t%.3f' % (test_way, val_shot, val_acc, val_interval))
 
@@ -254,11 +254,11 @@ class Train_Manager:
 
             mean, interval = meta_test_yzw(model=model,
                                         dataloader=test_loader,
-                                        way=args.test_way,
-                                        shot=args.test_shot,
+                                        way=args.train_way,
+                                        shot=args.train_shot,
                                         trial=2000,
                                         validation=False
                                         )
-            logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.test_way,args.test_shot,mean,interval))
+            logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.train_way, args.train_shot, mean, interval))
 
 
