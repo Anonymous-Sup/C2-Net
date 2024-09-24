@@ -48,22 +48,27 @@ class C2_Net(nn.Module):
         '''
         img shape: torch.Size([80, 3, 256, 128])
         target shape: torch.Size([80])
+
+        f_h shape: torch.Size([80, 64, 16, 8])
+        f_m shape: torch.Size([80, 64, 32, 16])
+        f_refine_h shape: torch.Size([80, 64, 16, 8])
+        f_refine_m shape: torch.Size([80, 64, 16, 8])
+
+        centroid_h shape: torch.Size([5, 75, 8192])
+        query_h shape: torch.Size([5, 75, 8192])
+        centroid_m shape: torch.Size([5, 75, 8192])
+        query_m shape: torch.Size([5, 75, 8192])
+        log_prediction_h shape: torch.Size([75, 5])
+        log_prediction_m shape: torch.Size([75, 5])
+
         '''
 
         f_h, f_m = self.get_feature_vector(inp)
-        print("f_h shape: {}".format(f_h.shape))
-        print("f_m shape: {}".format(f_m.shape))
-
         f_refine_h, f_refine_m = self.clfr(f_h, f_m)
-        print("f_refine_h shape: {}".format(f_refine_h.shape))
-        print("f_refine_m shape: {}".format(f_refine_m.shape))
 
         centroid_h, query_h = self.csfa_h(f_refine_h, way, shot)
         centroid_m, query_m = self.csfa_m(f_refine_m, way, shot)
-        print("centroid_h shape: {}".format(centroid_h.shape))
-        print("query_h shape: {}".format(query_h.shape))
-        print("centroid_m shape: {}".format(centroid_m.shape))
-        print("query_m shape: {}".format(query_m.shape))
+
 
         l2_dist_h = torch.sum(torch.pow(centroid_h - query_h, 2), dim=-1).transpose(0, 1)
         neg_l2_dist_h = l2_dist_h.neg()

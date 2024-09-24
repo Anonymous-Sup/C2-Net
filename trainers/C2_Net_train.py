@@ -32,6 +32,8 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
         img = img.cuda()
         target = vid.cuda()
 
+        query_target = target[way * query_shot:]
+
         '''
         img shape: torch.Size([80, 3, 256, 128])
         target shape: torch.Size([80])
@@ -43,13 +45,11 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
 
         '''
         log_prediction_h, log_prediction_m = model(img)
-        logger.info('log_prediction_h shape: {}'.format(log_prediction_h.shape))
-        logger.info('log_prediction_m shape: {}'.format(log_prediction_m.shape))
 
         alpha = args.alpha
 
-        loss_h = criterion(log_prediction_h, target)
-        loss_m = criterion(log_prediction_m, target)
+        loss_h = criterion(log_prediction_h, query_target)
+        loss_m = criterion(log_prediction_m, query_target)
         loss_total = (alpha * loss_h + (1 - alpha) * loss_m)*2
 
         optimizer.zero_grad()
@@ -61,7 +61,7 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
         log_prediction = (log_prediction_h + log_prediction_m) / 2
         _, max_index = torch.max(log_prediction, 1)
         # acc = 100 * torch.sum(torch.eq(max_index, target)).item() / query_shot / way
-        acc = 100 * torch.sum(torch.eq(max_index, target)).item() / len(target)
+        acc = 100 * torch.sum(torch.eq(max_index, query_target)).item() / len(query_target)
 
         avg_acc += acc
         avg_loss += loss_value

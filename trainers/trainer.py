@@ -210,7 +210,7 @@ class Train_Manager:
                                         loader=val_loader,
                                         way=args.test_way,
                                         shot=args.test_shot,
-                                        trial=1,
+                                        trial=2000,
                                         validation=True
                                         )
                     logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(test_way, val_shot, val_acc, val_interval))
@@ -256,7 +256,7 @@ class Train_Manager:
                                         loader=test_loader,
                                         way=args.test_way,
                                         shot=args.test_shot,
-                                        trial=1,
+                                        trial=2000,
                                         validation=False
                                         )
             logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.test_way,args.test_shot,mean,interval))

@@ -53,9 +53,11 @@ def meta_test_yzw(model, dataloader, way, shot, trail, validation=False):
     for i, (img, vid, target_cam, target_view, _) in enumerate(dataloader):
         img = img.cuda()
         target = vid.cuda()
-        max_index = model.meta_test(img, way=way, shot=shot, query_shot=16)
+        query_target = target[way*shot:]
 
-        acc = 100 * torch.sum(torch.eq(max_index, target)).item() / len(target)
+        max_index = model.meta_test(img, way=way, shot=shot, query_shot=15)
+
+        acc = 100 * torch.sum(torch.eq(max_index, query_target)).item() / len(query_target)
         acc_list.append(acc)
 
     if trail > 1:
