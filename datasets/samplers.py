@@ -12,11 +12,12 @@ import random
 
 
 class FewshotBatchSampler(Sampler):
-    def __init__(self, data_source, way, shot, trial=100):
+    def __init__(self, data_source, way, shot, query_shot, trial=250):
         
         self.data_source = data_source
         self.way = way
         self.shot = shot
+        self.query_shot = query_shot
         self.trial = trial
 
         self.index_dic = defaultdict(list)
@@ -40,17 +41,18 @@ class FewshotBatchSampler(Sampler):
             for pid in selected_pids:
                 episode_idxs.extend(index_dic[pid][:self.shot])
             for pid in selected_pids:
-                episode_idxs.extend(index_dic[pid][self.shot:])
+                episode_idxs.extend(index_dic[pid][self.shot: self.shot + self.query_shot])
 
             yield episode_idxs
 
 
 class ValSampler(Sampler):
-    def __init__(self, data_source, way, shot, trial=2000):
+    def __init__(self, data_source, way, shot, query_shot, trial=2000):
         
         self.data_source = data_source
         self.way = way
         self.shot = shot
+        self.query_shot = query_shot
         self.trial = trial
 
         self.index_dic = defaultdict(list)
@@ -76,18 +78,19 @@ class ValSampler(Sampler):
                 episode_idxs.extend(index_dic[pid][:self.shot])
 
             for pid in selected_pids:
-                episode_idxs.extend(index_dic[pid][self.shot:])
+                episode_idxs.extend(index_dic[pid][self.shot + self.query_shot])
 
             yield episode_idxs
 
 
 class RandomSampler(Sampler):
-    def __init__(self, data_source_query, datasource_gallery, way, shot, trial=1):
+    def __init__(self, data_source_query, datasource_gallery, way, shot, query_shot, trial=2000):
         
         self.data_source_query = data_source_query
         self.datasource_gallery = datasource_gallery
         self.way = way
         self.shot = shot
+        self.query_shot = query_shot
         self.trial = trial
 
         self.index_dic = defaultdict(list)
@@ -120,7 +123,7 @@ class RandomSampler(Sampler):
                 episode_idxs.extend(index_dic[pid])
 
             for pid in selected_pids:
-                episode_idxs.extend(index_dic_gallery[pid])
+                episode_idxs.extend(index_dic_gallery[pid][:self.query_shot])
 
             yield episode_idxs
 

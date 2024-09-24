@@ -94,14 +94,14 @@ def make_fewshot_dataloader(args, data_root):
 
     meta_train_dataloader = DataLoader(train_set, 
                                        batch_sampler= FewshotBatchSampler(dataset.train, 
-                                                      way=args.train_way, shot=args.train_shot),
+                                                      way=args.train_way, shot=args.train_shot, query_shot=args.train_query_shot),
                                         num_workers=num_workers, collate_fn=train_collate_fn, pin_memory=False)
 
 
     val_set = ImageDataset(dataset.val, val_transforms)
     val_loader = DataLoader(val_set, 
                             batch_sampler=ValSampler(dataset.val, way=args.test_way, 
-                                             shot=args.test_shot, trial=args.val_trial),
+                                             shot=args.test_shot, query_shot=args.test_query_shot, trial=args.val_trial),
                             num_workers=num_workers, collate_fn=val_collate_fn
     )
 
@@ -109,7 +109,7 @@ def make_fewshot_dataloader(args, data_root):
 
     test_loader = DataLoader(test_set, 
                               batch_sampler=RandomSampler(dataset.query, dataset.gallery, way=args.test_way, 
-                                             shot=args.test_shot, trial=args.val_trial),
+                                             shot=args.test_shot, query_shot=args.test_query_shot, trial=args.val_trial),
                               num_workers=num_workers, collate_fn=val_collate_fn
     )
 
