@@ -26,6 +26,7 @@ tm = trainer.Train_Manager(args, train_func=train_func)
 model = load_model(args)
 if args.resume:
     model = load_resume_point(args, model)
+    model = model.cuda()
 
 # tm.train(model, train_loader, val_loader)
 tm.evaluate(model, test_loader)

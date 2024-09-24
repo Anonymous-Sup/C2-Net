@@ -47,9 +47,9 @@ def meta_test_yzw(model, dataloader, way, shot,  trial, query_shot=15, validatio
     
     acc_list = []
 
-    # if validation==False:
-    #     shot = shot*2
-    #     query_shot = query_shot+1
+    if validation==False:
+        shot = shot*2
+        query_shot = query_shot+1
     
     target = torch.LongTensor([i//query_shot for i in range(query_shot * way)]).cuda()
 
