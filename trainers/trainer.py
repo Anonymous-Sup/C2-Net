@@ -56,7 +56,7 @@ def train_parser():
     parser.add_argument("--train_way", help="training way", type=int, required=True)
     parser.add_argument("--test_way", help="test way", type=int, default=5)
     parser.add_argument("--train_shot", help="number of support images per class for meta-training and meta-testing during validation", type=int)
-    parser.add_argument("--test_shot", nargs='+', help="number of support images per class for meta-testing during final test", type=int)
+    parser.add_argument("--test_shot", help="number of support images per class for meta-testing during final test", type=int)
     parser.add_argument("--train_query_shot", help="number of query images per class during meta-training", type=int, default=15)
     parser.add_argument("--test_query_shot", help="number of query images per class during meta-testing", type=int, default=15)
     parser.add_argument("--train_transform_type", help="size transformation type during training", type=int)
@@ -254,11 +254,11 @@ class Train_Manager:
 
             mean, interval = meta_test_yzw(model=model,
                                         dataloader=test_loader,
-                                        way=args.train_way,
-                                        shot=args.train_shot,
+                                        way=args.test_way,
+                                        shot=args.test_shot,
                                         trial=1000,
                                         validation=False
                                         )
-            logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.train_way, args.train_shot, mean, interval))
+            logger.info('{}-way-{}-shot acc: {:.3f}\t{:.3f}'.format(args.test_way, args.test_shot, mean, interval))
 
 
