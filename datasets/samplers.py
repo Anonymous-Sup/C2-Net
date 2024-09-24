@@ -73,6 +73,7 @@ class ValSampler(Sampler):
     
             for pid in selected_pids:
                 np.random.shuffle(index_dic[pid])
+                assert len(index_dic[pid]) >= self.shot + self.query_shot, 'Not enough samples for the episode, got {} but need {}'.format(len(index_dic[pid]), self.shot + self.query_shot)
 
             for pid in selected_pids:
                 episode_idxs.extend(index_dic[pid][:self.shot])
