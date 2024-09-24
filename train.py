@@ -8,21 +8,20 @@ from utils.util import *
 args = trainer.train_parser()
 os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu)
 
-fewshot_path = dataset_path(args)
-pm = trainer.Path_Manager(fewshot_path=fewshot_path, args=args)
+data_root, fewshot_path = dataset_path(args)
 
+# pm = trainer.Path_Manager(fewshot_path=fewshot_path, args=args)
 # train_loader = dataloaders.meta_train_dataloader(data_path=pm.train,
 #                           way=args.train_way,
 #                           shots=[args.train_shot, args.train_query_shot],
 #                           transform_type=args.train_transform_type)
 
-train_loader, val_loader, test_loader, num_query, num_classes = make_fewshot_dataloader(args)
-
+train_loader, val_loader, test_loader, num_query, num_classes = make_fewshot_dataloader(args, data_root)
 
 args.save_folder = get_save_path(args)
 
 train_func = partial(C2_Net_train.default_train, train_loader=train_loader)
-tm = trainer.Train_Manager(args, path_manager=pm, train_func=train_func)
+tm = trainer.Train_Manager(args, train_func=train_func)
 
 model = load_model(args)
 if args.resume:

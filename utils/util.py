@@ -78,7 +78,7 @@ def dataset_path(args):
         fewshot_path = os.path.join(data_path, 'Sketchy')
 
 
-    return fewshot_path
+    return data_path, fewshot_path
 
 
 def load_model(args):

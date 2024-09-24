@@ -111,7 +111,7 @@ class Path_Manager:
 
 
 class Train_Manager:
-    def __init__(self, args, path_manager, train_func):
+    def __init__(self, args, train_func):
 
         seed = args.seed
         torch.manual_seed(seed)
@@ -162,7 +162,7 @@ class Train_Manager:
         self.logger.info('------------------------')
         self.args = args
         self.train_func = train_func
-        self.pm = path_manager
+        # self.pm = path_manager
 
     def train(self, model, train_loader, val_loader):
 

@@ -34,7 +34,6 @@ from timm.data.random_erasing import RandomErasing
 
 __factory = {
     'sketchy': Sketchy,
-
 }
 
 
@@ -64,7 +63,7 @@ PIXEL_MEAN = [0.5, 0.5, 0.5]
 PIXEL_STD = [0.5, 0.5, 0.5]
 RE_PROB = 0.5
 
-def make_fewshot_dataloader(args):
+def make_fewshot_dataloader(args, data_root):
 
     train_transforms = T.Compose([
             T.Resize(SIZE_TRAIN, interpolation=3),
@@ -85,7 +84,7 @@ def make_fewshot_dataloader(args):
 
     num_workers = 8
 
-    dataset = __factory[args.dataset](root=args.dataroot, KSHOT=args.train_shot)
+    dataset = __factory[args.dataset](root=data_root, KSHOT=args.train_shot)
     
     train_set = ImageDataset(dataset.train, train_transforms)
 
