@@ -238,7 +238,7 @@ class Sketchy(BaseImageDataset):
         super(Sketchy, self).__init__()
 
         # choice for 'allway' and '5way'
-        self.training_mode = 'allway'
+        self.training_mode = '5way'
 
         self.base_label2index, self.novel_label2index, self.selected_label2inds = buildLabelIndex(Way=5, seed=1)
 
