@@ -108,8 +108,8 @@ def make_fewshot_dataloader(args, data_root):
     test_set = ImageDataset(dataset.query + dataset.gallery, val_transforms)
 
     test_loader = DataLoader(test_set, 
-                              batch_sampler=RandomSampler(dataset.query, dataset.gallery, way=args.train_way, 
-                                             shot=args.train_shot, query_shot=args.train_query_shot, trial=args.val_trial),
+                              batch_sampler=RandomSampler(dataset.query, dataset.gallery, way=args.test_way, 
+                                             shot=args.test_shot, query_shot=args.test_query_shot, trial=args.val_trial),
                               num_workers=num_workers, collate_fn=val_collate_fn
     )
 
