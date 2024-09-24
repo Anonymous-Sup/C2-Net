@@ -5,6 +5,7 @@ import logging
 def default_train(train_loader, model, optimizer, writer, iter_counter, args):
 
     way = model.way
+    shot = model.shots[0]
     query_shot = model.shots[-1]
 
     # for each way build a target tensor form 0 to way-1
@@ -32,7 +33,7 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
         img = img.cuda()
         target = vid.cuda()
 
-        query_target = target[way * query_shot:]
+        query_target = target[way * shot:]
 
         '''
         img shape: torch.Size([80, 3, 256, 128])
