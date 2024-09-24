@@ -7,9 +7,9 @@ cd /home/zhengwei/github/C2-Net/
 # --alpha 0.5 --pre > train_sketchy.log 2>&1 &
 
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --model C2_Net --dataset sketchy \
---gpu 1 --alpha 0.5 --resnet --detailed_name \
+--gpu 1 --alpha 0.5 --detailed_name \
 --opt adam --lr 1e-3 --gamma 1e-1 --epoch 150 --val_epoch 10 --weight_decay 5e-4 --nesterov \
---train_way 5 --test_way 5 --train_shot 1  --test_shot 1 > train_sketchy_resnet1e3_adam.log 2>&1 &
+--train_way 5 --test_way 5 --train_shot 1  --test_shot 1 > train_sketchy_conv41e3_adam.log 2>&1 &
 
 # CUDA_VISIBLE_DEVICES=1 python train.py --model C2_Net --dataset sketchy \
 # --gpu 1 --alpha 0.5 --resume \
