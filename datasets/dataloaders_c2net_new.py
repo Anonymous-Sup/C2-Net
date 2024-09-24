@@ -15,22 +15,29 @@ import torchvision.transforms as T
 from torch.utils.data import DataLoader
 from timm.data.random_erasing import RandomErasing
 
+# __factory = {
+#     'market1501': Market1501,
+#     'dukemtmc': DukeMTMCreID,
+#     'msmt17': MSMT17,
+#     'occ_duke': OCC_DukeMTMCreID,
+#     'veri': VeRi,
+#     'VehicleID': VehicleID,
+#     'market-sketch': MarketSketch,
+#     'sysu_mm01': SYSU_MM01,
+#     'sksf_a': SKSF_A,
+#     'celebHQ': CELAB_HQR,
+#     'sketchy': Sketchy,
+#     'tuberlin': TUBerlin,
+#     'market-sketch-fewshot': MarketSketch_FewShot,
+#     'sksf_a_fewshot': SKSF_A_FewShot,
+# }
+
 __factory = {
-    'market1501': Market1501,
-    'dukemtmc': DukeMTMCreID,
-    'msmt17': MSMT17,
-    'occ_duke': OCC_DukeMTMCreID,
-    'veri': VeRi,
-    'VehicleID': VehicleID,
-    'market-sketch': MarketSketch,
-    'sysu_mm01': SYSU_MM01,
-    'sksf_a': SKSF_A,
-    'celebHQ': CELAB_HQR,
     'sketchy': Sketchy,
-    'tuberlin': TUBerlin,
-    'market-sketch-fewshot': MarketSketch_FewShot,
-    'sksf_a_fewshot': SKSF_A_FewShot,
+
 }
+
+
 
 def train_collate_fn(batch):
     """
