@@ -31,7 +31,12 @@ def default_train(train_loader, model, optimizer, writer, iter_counter, args):
 
         img = img.cuda()
         target = vid.cuda()
+
+        logger.info('img shape: {}'.format(img.shape))
+        logger.info('target shape: {}'.format(target.shape))
         log_prediction_h, log_prediction_m = model(img)
+        logger.info('log_prediction_h shape: {}'.format(log_prediction_h.shape))
+        logger.info('log_prediction_m shape: {}'.format(log_prediction_m.shape))
 
         alpha = args.alpha
 
