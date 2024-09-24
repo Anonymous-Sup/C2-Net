@@ -83,8 +83,9 @@ def make_fewshot_dataloader(args, data_root):
     ])
 
     num_workers = 8
-
-    dataset = __factory[args.dataset](root=data_root, NWAY=args.train_way, KSHOT=args.train_shot)
+    
+    # this might different between train and test set
+    dataset = __factory[args.dataset](root=data_root, NWAY=args.train_way, KSHOT=args.test_shot)
     
     train_set = ImageDataset(dataset.train, train_transforms)
 
