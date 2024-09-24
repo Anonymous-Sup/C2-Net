@@ -256,6 +256,7 @@ class Train_Manager:
                                         dataloader=test_loader,
                                         way=args.test_way,
                                         shot=args.test_shot,
+                                        query_shot=args.test_query_shot,
                                         trial=1000,
                                         validation=False
                                         )
