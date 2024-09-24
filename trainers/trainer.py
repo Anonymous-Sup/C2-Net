@@ -63,7 +63,7 @@ def train_parser():
     parser.add_argument("--test_transform_type", help="size transformation type during inference", type=int)
     parser.add_argument("--val_trial", help="number of meta-testing episodes during validation", type=int, default=1000)
     parser.add_argument("--detailed_name", help="whether include training details in the name", action="store_true")
-    parser.add_argument("--dataset", choices=['stanford_dog', 'stanford_car', 'cub_raw', 'meta_iNat', 'tiered_meta_iNat'])
+    parser.add_argument("--dataset", choices=['sketchy','stanford_dog', 'stanford_car', 'cub_raw', 'meta_iNat', 'tiered_meta_iNat'])
     parser.add_argument("--alpha", type=float, default=0.5)
     parser.add_argument("--model", choices=['C2_Net'], default='C2_Net')
     parser.add_argument("--resume", action="store_true")
