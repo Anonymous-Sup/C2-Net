@@ -1,5 +1,4 @@
-cd ../C2-Net
-
+cd /home/zhengwei/github/C2-Net/
 
 
 # CUDA_VISIBLE_DEVICES=3 nohup python -u train.py --model C2_Net --dataset sketchy \
