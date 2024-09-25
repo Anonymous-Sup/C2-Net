@@ -121,10 +121,24 @@ def get_save_path(args):
 def load_resume_point(args, model):
     if args.resnet:
         name = 'ResNet-12'
-        load_path = os.path.join(args.save_folder, 'model_%s.pth' % (name))
     else:
         name = 'Conv-4'
-        load_path = os.path.join(args.save_folder, 'model_%s.pth' % (name))
+
+    if args.detailed_name:
+        if args.decay_epoch is not None:
+            temp = ''
+            for i in args.decay_epoch:
+                temp += ('_'+str(i))
+
+            suffix = '%s-lr_%.0e-gamma_%.0e-epoch_%d-drop%s-decay_%.0e-way_%d' % \
+                        (args.opt, args.lr, args.gamma, args.epoch, temp, args.weight_decay, args.train_way)
+        else:
+            suffix = '%s-lr_%.0e-gamma_%.0e-epoch_%d-decay_%.0e-way_%d' % \
+                        (args.opt, args.lr, args.gamma, args.epoch, args.weight_decay, args.train_way)
+
+        name = "%s-%s" % (name, suffix)
+
+    load_path = os.path.join(args.save_folder, 'model_%s.pth' % (name))
 
     try:
         model.load_state_dict(torch.load(load_path, map_location='cpu'))
