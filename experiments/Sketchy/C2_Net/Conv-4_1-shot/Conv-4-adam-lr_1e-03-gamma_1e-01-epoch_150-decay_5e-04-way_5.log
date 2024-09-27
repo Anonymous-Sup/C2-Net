@@ -1,0 +1,202 @@
+[09/25 01:49:43] display resume information
+[09/25 01:49:43] display resume information
+[09/25 01:49:43] display resume information
+[09/25 01:49:43] display resume information
+[09/25 01:49:43] display resume information
+[09/25 01:49:43] display all the hyper-parameters in args:
+[09/25 01:49:43] opt: adam
+[09/25 01:49:43] lr: 0.001
+[09/25 01:49:43] gamma: 0.1
+[09/25 01:49:43] epoch: 150
+[09/25 01:49:43] weight_decay: 0.0005
+[09/25 01:49:43] gpu: 1
+[09/25 01:49:43] seed: 42
+[09/25 01:49:43] val_epoch: 10
+[09/25 01:49:43] resnet: False
+[09/25 01:49:43] nesterov: True
+[09/25 01:49:43] pre: False
+[09/25 01:49:43] no_val: False
+[09/25 01:49:43] train_way: 5
+[09/25 01:49:43] test_way: 5
+[09/25 01:49:43] train_shot: 1
+[09/25 01:49:43] test_shot: 1
+[09/25 01:49:43] train_query_shot: 15
+[09/25 01:49:43] test_query_shot: 15
+[09/25 01:49:43] val_trial: 2000
+[09/25 01:49:43] detailed_name: True
+[09/25 01:49:43] dataset: sketchy
+[09/25 01:49:43] alpha: 0.5
+[09/25 01:49:43] model: C2_Net
+[09/25 01:49:43] resume: False
+[09/25 01:49:43] resume_epoch: 0
+[09/25 01:49:43] save_folder: /home/zhengwei/github/C2-Net/experiments/Sketchy/C2_Net/Conv-4_1-shot
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] start training!
+[09/25 01:49:43] Training...
+[09/25 01:49:43] Learning rate: 0.001
+[09/25 01:49:43] scale_h: 1.0
+[09/25 01:49:43] scale_m: 1.0
+[09/25 01:49:43] --------------------------
+[09/25 01:49:43] display all the hyper-parameters in args:
+[09/25 01:49:43] opt: adam
+[09/25 01:49:43] lr: 0.001
+[09/25 01:49:43] gamma: 0.1
+[09/25 01:49:43] epoch: 150
+[09/25 01:49:43] weight_decay: 0.0005
+[09/25 01:49:43] gpu: 1
+[09/25 01:49:43] seed: 42
+[09/25 01:49:43] val_epoch: 1
+[09/25 01:49:43] resnet: False
+[09/25 01:49:43] nesterov: True
+[09/25 01:49:43] pre: False
+[09/25 01:49:43] no_val: False
+[09/25 01:49:43] train_way: 5
+[09/25 01:49:43] test_way: 5
+[09/25 01:49:43] train_shot: 1
+[09/25 01:49:43] test_shot: 1
+[09/25 01:49:43] train_query_shot: 15
+[09/25 01:49:43] test_query_shot: 150
+[09/25 01:49:43] val_trial: 2000
+[09/25 01:49:43] detailed_name: True
+[09/25 01:49:43] dataset: sketchy
+[09/25 01:49:43] alpha: 0.5
+[09/25 01:49:43] model: C2_Net
+[09/25 01:49:43] resume: True
+[09/25 01:49:43] resume_epoch: 0
+[09/25 01:49:43] save_folder: /home/zhengwei/github/C2-Net/experiments/Sketchy/C2_Net/Conv-4_1-shot
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] start training!
+[09/25 01:49:43] Training...
+[09/25 01:49:43] Learning rate: 0.001
+[09/25 01:49:43] scale_h: 2.244314432144165
+[09/25 01:49:43] scale_m: 2.1566855907440186
+[09/25 01:49:43] Avg Train C2_Net_loss: 2.4484
+[09/25 01:49:43] Avg Train Acc: 51.07
+[09/25 01:49:43] 
+[09/25 01:49:43] epoch 1/150, iter 250:
+[09/25 01:49:43] --------------------------
+[09/25 01:49:43] display all the hyper-parameters in args:
+[09/25 01:49:43] opt: adam
+[09/25 01:49:43] lr: 0.001
+[09/25 01:49:43] gamma: 0.1
+[09/25 01:49:43] epoch: 150
+[09/25 01:49:43] weight_decay: 0.0005
+[09/25 01:49:43] gpu: 1
+[09/25 01:49:43] seed: 42
+[09/25 01:49:43] val_epoch: 1
+[09/25 01:49:43] resnet: False
+[09/25 01:49:43] nesterov: True
+[09/25 01:49:43] pre: False
+[09/25 01:49:43] no_val: False
+[09/25 01:49:43] train_way: 5
+[09/25 01:49:43] test_way: 5
+[09/25 01:49:43] train_shot: 1
+[09/25 01:49:43] test_shot: 1
+[09/25 01:49:43] train_query_shot: 15
+[09/25 01:49:43] test_query_shot: 150
+[09/25 01:49:43] val_trial: 2000
+[09/25 01:49:43] detailed_name: True
+[09/25 01:49:43] dataset: sketchy
+[09/25 01:49:43] alpha: 0.5
+[09/25 01:49:43] model: C2_Net
+[09/25 01:49:43] resume: True
+[09/25 01:49:43] resume_epoch: 0
+[09/25 01:49:43] save_folder: /home/zhengwei/github/C2-Net/experiments/Sketchy/C2_Net/Conv-4_1-shot
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] evaluating on test set:
+[09/25 01:49:43] --------------------------
+[09/25 01:49:43] display all the hyper-parameters in args:
+[09/25 01:49:43] opt: adam
+[09/25 01:49:43] lr: 0.001
+[09/25 01:49:43] gamma: 0.1
+[09/25 01:49:43] epoch: 150
+[09/25 01:49:43] weight_decay: 0.0005
+[09/25 01:49:43] gpu: 1
+[09/25 01:49:43] seed: 42
+[09/25 01:49:43] val_epoch: 1
+[09/25 01:49:43] resnet: False
+[09/25 01:49:43] nesterov: True
+[09/25 01:49:43] pre: False
+[09/25 01:49:43] no_val: False
+[09/25 01:49:43] train_way: 5
+[09/25 01:49:43] test_way: 5
+[09/25 01:49:43] train_shot: 1
+[09/25 01:49:43] test_shot: 1
+[09/25 01:49:43] train_query_shot: 15
+[09/25 01:49:43] test_query_shot: 50
+[09/25 01:49:43] val_trial: 2000
+[09/25 01:49:43] detailed_name: True
+[09/25 01:49:43] dataset: sketchy
+[09/25 01:49:43] alpha: 0.5
+[09/25 01:49:43] model: C2_Net
+[09/25 01:49:43] resume: True
+[09/25 01:49:43] resume_epoch: 0
+[09/25 01:49:43] save_folder: /home/zhengwei/github/C2-Net/experiments/Sketchy/C2_Net/Conv-4_1-shot
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] evaluating on test set:
+[09/25 01:49:43] --------------------------
+[09/25 01:49:43] display all the hyper-parameters in args:
+[09/25 01:49:43] opt: adam
+[09/25 01:49:43] lr: 0.001
+[09/25 01:49:43] gamma: 0.1
+[09/25 01:49:43] epoch: 150
+[09/25 01:49:43] weight_decay: 0.0005
+[09/25 01:49:43] gpu: 1
+[09/25 01:49:43] seed: 42
+[09/25 01:49:43] val_epoch: 1
+[09/25 01:49:43] resnet: False
+[09/25 01:49:43] nesterov: True
+[09/25 01:49:43] pre: False
+[09/25 01:49:43] no_val: False
+[09/25 01:49:43] train_way: 5
+[09/25 01:49:43] test_way: 5
+[09/25 01:49:43] train_shot: 1
+[09/25 01:49:43] test_shot: 1
+[09/25 01:49:43] train_query_shot: 15
+[09/25 01:49:43] test_query_shot: 100
+[09/25 01:49:43] val_trial: 2000
+[09/25 01:49:43] detailed_name: True
+[09/25 01:49:43] dataset: sketchy
+[09/25 01:49:43] alpha: 0.5
+[09/25 01:49:43] model: C2_Net
+[09/25 01:49:43] resume: True
+[09/25 01:49:43] resume_epoch: 0
+[09/25 01:49:43] save_folder: /home/zhengwei/github/C2-Net/experiments/Sketchy/C2_Net/Conv-4_1-shot
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] ------------------------
+[09/25 01:49:43] evaluating on test set:
+[09/25 01:49:43] 5-way-1-shot acc: 303.411	0.563
+[09/25 01:49:43] --------------------------
+[09/25 01:49:43] display all the hyper-parameters in args:
+[09/25 01:49:43] opt: adam
+[09/25 01:49:43] lr: 0.001
+[09/25 01:49:43] gamma: 0.1
+[09/25 01:49:43] epoch: 150
+[09/25 01:49:43] weight_decay: 0.0005
+[09/25 01:49:43] gpu: 1
+[09/25 01:49:43] seed: 42
+[09/25 01:49:43] val_epoch: 10
+[09/25 01:49:43] resnet: False
+[09/25 01:49:43] nesterov: True
+[09/25 01:49:43] pre: False
+[09/25 01:49:43] no_val: False
+[09/25 01:49:43] train_way: 5
+[09/25 01:49:43] test_way: 5
+[09/25 01:49:43] train_shot: 1
+[09/25 01:49:43] test_shot: 1
+[09/25 01:49:43] train_query_shot: 15
+[09/25 01:49:43] test_query_shot: 15
+[09/25 01:49:43] val_trial: 2000
+[09/25 01:49:43] detailed_name: True
+[09/25 01:49:43] dataset: sketchy
+[09/25 01:49:43] alpha: 0.5
+[09/25 01:49:43] model: C2_Net
+[09/25 01:49:43] resume: True
+[09/25 01:49:43] resume_epoch: 0
+[09/25 01:49:43] save_folder: /home/zhengwei/github/C2-Net/experiments/Sketchy/C2_Net/Conv-4_1-shot
+[09/25 01:49:43] ------------------------
+[09/25 01:49:44] ------------------------
+[09/25 01:49:44] evaluating on test set:
+[09/25 01:51:07] 5-way-1-shot acc: 40.171	0.377

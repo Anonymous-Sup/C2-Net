@@ -1,0 +1,84 @@
+/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torchvision/transforms/transforms.py:329: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+=> Sketchy dataset loaded
+Dataset statistics:
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |    64 |    23217 |         1
+  query    |     5 |       10 |         1
+  gallery  |     5 |     5548 |         1
+  val      |    64 |     7739 |         1
+  ----------------------------------------
+[09/24 06:32:40] display all the hyper-parameters in args:
+[09/24 06:32:40] opt: adam
+[09/24 06:32:40] lr: 0.001
+[09/24 06:32:40] gamma: 0.1
+[09/24 06:32:40] epoch: 150
+[09/24 06:32:40] weight_decay: 0.0005
+[09/24 06:32:40] gpu: 1
+[09/24 06:32:40] seed: 42
+[09/24 06:32:40] val_epoch: 10
+[09/24 06:32:40] resnet: True
+[09/24 06:32:40] nesterov: True
+[09/24 06:32:40] pre: False
+[09/24 06:32:40] no_val: False
+[09/24 06:32:40] train_way: 5
+[09/24 06:32:40] test_way: 5
+[09/24 06:32:40] train_shot: 1
+[09/24 06:32:40] test_shot: 1
+[09/24 06:32:40] train_query_shot: 15
+[09/24 06:32:40] test_query_shot: 15
+[09/24 06:32:40] val_trial: 2000
+[09/24 06:32:40] detailed_name: True
+[09/24 06:32:40] dataset: sketchy
+[09/24 06:32:40] alpha: 0.5
+[09/24 06:32:40] model: C2_Net
+[09/24 06:32:40] resume: False
+[09/24 06:32:40] resume_epoch: 0
+[09/24 06:32:40] save_folder: /home/zhengwei/github/C2-Net/experiments/Sketchy/C2_Net/ResNet-12_1-shot
+[09/24 06:32:40] ------------------------
+[09/24 06:32:41] start training!
+  0%|          | 0/150 [00:00<?, ?it/s][09/24 06:32:41] Training...
+[09/24 06:32:41] Learning rate: 0.001
+[09/24 06:32:41] scale_h: 1.0
+[09/24 06:32:41] scale_m: 1.0
+  0%|          | 0/150 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/zhengwei/github/C2-Net/train.py", line 31, in <module>
+    tm.train(model, train_loader, val_loader)
+  File "/home/zhengwei/github/C2-Net/trainers/trainer.py", line 194, in train
+    iter_counter, train_acc, train_loss = train_func(model=model,
+  File "/home/zhengwei/github/C2-Net/trainers/C2_Net_train.py", line 48, in default_train
+    log_prediction_h, log_prediction_m = model(img)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zhengwei/github/C2-Net/models/C2_Net.py", line 105, in forward
+    neg_l2_dist_h, neg_l2_dist_m = self.get_neg_l2_dist(inp=inp,
+  File "/home/zhengwei/github/C2-Net/models/C2_Net.py", line 67, in get_neg_l2_dist
+    f_h, f_m = self.get_feature_vector(inp)
+  File "/home/zhengwei/github/C2-Net/models/C2_Net.py", line 42, in get_feature_vector
+    f_h, f_m = self.feature_extractor(inp)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zhengwei/github/C2-Net/models/backbones/ResNet.py", line 184, in forward
+    l2 = self.layer2(l1)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zhengwei/github/C2-Net/models/backbones/ResNet.py", line 111, in forward
+    residual = self.downsample(x)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 463, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/zhengwei/yzwT2V/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 459, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 400.00 MiB (GPU 0; 10.75 GiB total capacity; 10.10 GiB already allocated; 109.62 MiB free; 10.40 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
